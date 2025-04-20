@@ -1,12 +1,34 @@
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Upload } from "lucide-react";
+import { toast } from "sonner";
+import AdminLayout from "@/components/layout/AdminLayout";
+
+// Mock players data
+const mockPlayers = [
+  { id: "P001", name: "John Doe" },
+  { id: "P002", name: "Jane Smith" },
+  { id: "P003", name: "Michael Johnson" },
+  { id: "P004", name: "Sarah Williams" }
+];
 
 const CertificateUpload = () => {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
+  const [selectedPlayerId, setSelectedPlayerId] = useState<string>("");
+  const navigate = useNavigate();
+
+  // Simple authentication check
+  useEffect(() => {
+    const isAuthenticated = localStorage.getItem("admin_authenticated") === "true";
+    if (!isAuthenticated) {
+      navigate("/admin/login");
+    }
+  }, [navigate]);
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     if (event.target.files && event.target.files[0]) {
@@ -15,14 +37,35 @@ const CertificateUpload = () => {
   };
 
   const handleUpload = () => {
-    if (selectedFile) {
-      // Handle file upload logic here
-      console.log("Uploading file:", selectedFile);
+    if (!selectedPlayerId) {
+      toast.error("Please select a player");
+      return;
+    }
+    
+    if (!selectedFile) {
+      toast.error("Please select a file to upload");
+      return;
+    }
+
+    // In a real app, upload the file to server here
+    
+    // Success notification
+    const playerName = mockPlayers.find(p => p.id === selectedPlayerId)?.name;
+    toast.success(`Certificate uploaded successfully for ${playerName}`);
+    
+    // Reset form
+    setSelectedFile(null);
+    setSelectedPlayerId("");
+    
+    // Reset file input
+    const fileInput = document.getElementById('certificate-upload') as HTMLInputElement;
+    if (fileInput) {
+      fileInput.value = '';
     }
   };
 
   return (
-    <div className="p-8">
+    <AdminLayout>
       <h1 className="text-2xl font-bold mb-6">Certificate Upload</h1>
       
       <Card className="max-w-md">
@@ -30,9 +73,20 @@ const CertificateUpload = () => {
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium mb-2">
-                Player ID
+                Select Player
               </label>
-              <Input type="text" placeholder="Enter player ID" />
+              <Select value={selectedPlayerId} onValueChange={setSelectedPlayerId}>
+                <SelectTrigger>
+                  <SelectValue placeholder="Select player" />
+                </SelectTrigger>
+                <SelectContent>
+                  {mockPlayers.map(player => (
+                    <SelectItem key={player.id} value={player.id}>
+                      {player.name} ({player.id})
+                    </SelectItem>
+                  ))}
+                </SelectContent>
+              </Select>
             </div>
             
             <div>
@@ -67,14 +121,14 @@ const CertificateUpload = () => {
             <Button 
               className="w-full"
               onClick={handleUpload}
-              disabled={!selectedFile}
+              disabled={!selectedFile || !selectedPlayerId}
             >
               Upload Certificate
             </Button>
           </div>
         </CardContent>
       </Card>
-    </div>
+    </AdminLayout>
   );
 };
 
