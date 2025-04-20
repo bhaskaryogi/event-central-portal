@@ -4,8 +4,8 @@ import { useNavigate, Link, useLocation } from "react-router-dom";
 import { 
   LayoutDashboard, 
   Users, 
-  FileText, 
-  ImageIcon, 
+  FileCheck, 
+  Image, 
   BanknoteIcon,
   LogOut 
 } from "lucide-react";
@@ -30,9 +30,9 @@ const AdminLayout = ({ children }: AdminLayoutProps) => {
   const menuItems = [
     { icon: <LayoutDashboard size={20} />, label: "Dashboard", path: "/admin/dashboard" },
     { icon: <Users size={20} />, label: "Player Management", path: "/admin/players" },
-    { icon: <FileText size={20} />, label: "Certificate Upload", path: "/admin/certificates" },
+    { icon: <FileCheck size={20} />, label: "Certificate Upload", path: "/admin/certificates" },
     { icon: <BanknoteIcon size={20} />, label: "Payment Verification", path: "/admin/payments" },
-    { icon: <ImageIcon size={20} />, label: "Gallery Management", path: "/admin/gallery" }
+    { icon: <Image size={20} />, label: "Gallery Management", path: "/admin/gallery" }
   ];
 
   return (

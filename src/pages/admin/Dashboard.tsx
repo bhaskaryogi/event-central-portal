@@ -12,7 +12,8 @@ import {
   UsersRound,
   CreditCard,
   FileCheck,
-  BanknoteIcon
+  BanknoteIcon,
+  Image
 } from "lucide-react";
 import AdminLayout from "@/components/layout/AdminLayout";
 
@@ -170,7 +171,7 @@ const AdminDashboard = () => {
               { 
                 title: "Manage Gallery", 
                 description: "Add or remove event photos", 
-                icon: <ImageIcon size={18} />,
+                icon: <Image size={18} />,
                 path: "/admin/gallery" 
               },
               { 
