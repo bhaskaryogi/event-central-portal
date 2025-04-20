@@ -13,11 +13,11 @@ import Gallery from "./pages/Gallery";
 import Contact from "./pages/Contact";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
-import NotFound from "./pages/NotFound";
 import PlayersManagement from "./pages/admin/PlayersManagement";
 import CertificateUpload from "./pages/admin/CertificateUpload";
 import PaymentVerification from "./pages/admin/PaymentVerification";
 import GalleryManagement from "./pages/admin/GalleryManagement";
+import NotFound from "./pages/NotFound";
 
 const queryClient = new QueryClient();
 
