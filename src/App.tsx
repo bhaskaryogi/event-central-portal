@@ -3,6 +3,7 @@ import { Toaster as Sonner } from "@/components/ui/sonner";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+
 import Index from "./pages/Index";
 import About from "./pages/About";
 import Services from "./pages/Services";
@@ -13,6 +14,10 @@ import Contact from "./pages/Contact";
 import AdminLogin from "./pages/admin/Login";
 import AdminDashboard from "./pages/admin/Dashboard";
 import NotFound from "./pages/NotFound";
+import PlayersManagement from "./pages/admin/PlayersManagement";
+import CertificateUpload from "./pages/admin/CertificateUpload";
+import PaymentVerification from "./pages/admin/PaymentVerification";
+import GalleryManagement from "./pages/admin/GalleryManagement";
 
 const queryClient = new QueryClient();
 
@@ -35,6 +40,10 @@ const App = () => (
           {/* Admin Panel Routes */}
           <Route path="/admin/login" element={<AdminLogin />} />
           <Route path="/admin/dashboard" element={<AdminDashboard />} />
+          <Route path="/admin/players" element={<PlayersManagement />} />
+          <Route path="/admin/certificates" element={<CertificateUpload />} />
+          <Route path="/admin/payments" element={<PaymentVerification />} />
+          <Route path="/admin/gallery" element={<GalleryManagement />} />
           
           {/* 404 Not Found Route */}
           <Route path="*" element={<NotFound />} />
